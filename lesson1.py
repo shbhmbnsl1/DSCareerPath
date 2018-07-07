@@ -24,6 +24,10 @@ x = a[1:6]
 # to make copy of list 
 c = list(a)
 
+# if we normally copy a list like
+c = a
+# this will point to the same list and any changes made to one will be reflecting both
+
 
 
 
@@ -48,6 +52,10 @@ list1.reverse()
 
 """
 
+# For constant pi, import math package
+import math as mt
+Area = (mt.pi)*(18**2)
+
 # NumPy package -- for arrays
 import numpy as np
 list2 = [1,4,3,7]
@@ -69,19 +77,24 @@ list3 = [[2,3,4],
          [7,4,8]]
 
 arrr = np.array(list3)
+# shape method is used to get the dimension of numpy array
 print(arrr.shape)  # prints 3,3 because 3X3 matrix
 
 # Subsetting 2D numpy arrays is very easy
 x = [["a", "b"], ["c", "d"]]
-[x[0][0], x[1][0]]
+x_subsetted = [x[0][0], x[1][0]]
 
 import numpy as np
 np_x = np.array(x)
-np_x[:,0] # indices before comma represent rows and after comma represent columns
+np_x_subsetted = np_x[:,0] # indices before comma represent rows and after comma represent columns
+
 
 # Statistics using numpy arrays
 import numpy as np
 x = [1, 4, 8, 10, 12]
-np.mean(x)
-np.median(x)
+mean_x = np.mean(x)
+median_x = np.median(x)
+standard_dev = np.std(x)
+corr_coeff = np.corrcoef([1,2,3,4],[2,3,5,6])
+
 

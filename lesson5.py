@@ -14,9 +14,17 @@ file = open('titanic.txt', mode='r')
 content = file.read()
 file.close()
 
-with open('titanic.txt', mode='r') as file :
+# if we don't want to worry about closing the file each time we can use with
+# this is the best practice
+with open('simple_exp.py', mode='r') as file :
     content2 = file.read()
     print(content2)
+
+# we can also read only some lines of the files
+with open('simple_exp.py', mode='r') as file:
+    print(file.readline())
+    print(file.readline())
+
 
 
 
@@ -24,15 +32,26 @@ with open('titanic.txt', mode='r') as file :
 """
 2. Importing flat files using numpy
 """
+
+# To import flat files containing data of only a single type we can use numpy 
+# file data is imported as numpy array by specifying the delimiter 
+# if the file contains some header we can skip that row using additional argument skiprows
+# we can also select only some columns by using the argument usecols 
+# 
 import numpy as np
 data = np.loadtxt('file.txt', delimiter=',')
 
 file = 'digits_header.txt'
 data = np.loadtxt(file, delimiter='\t', skiprows=1, usecols=[0,2])
 
+# we can also import file as a single data type by specifying dtype as an additional argument
 data_float = np.loadtxt(file, delimiter='\t', dtype=float, skiprows=1)
 
 # to work with mixed datatypes genfromtxt is used
+# this numpy method takes three arguments 
+# @param filename, delimiter, names: True means a header is present, 
+# dtype is specified as None to work with mixed datatypes
+# @returns a 1D array which has each element as one row of the flat file as a tuple
 data = np.genfromtxt('titanic.csv', delimiter=',', names=True, dtype=None)
 
 # recfromcsv and genfromtxt are same but in recfromcsv delimiter and names and dtype have default values
@@ -154,6 +173,63 @@ engine = create_engine('sqlite:///Chinook.sqlite')
 table_names = engine.table_names()
 # Print the table names to the shell
 print(table_names)
+
+"""
+Querying the relational database
+-- Complete Workflow --
+1. Import packages and functions
+2. Create the engine
+3. Connect to the engine
+4. Query the database
+5. Store the result of query
+6. Close the connection
+"""
+
+from sqlalchemy import create_engine
+import pandas as pd
+
+engine = create_engine('sqlite:///Chinook.sqlite')
+
+con = engine.connect()
+
+rs = con.execute("SELECT * FROM Orders")
+
+df = pd.DataFrame(rs.fetchall())
+df.columns = rs.keys()
+
+
+# We can also fetch only a specific number of rows by using fetchmany function instead of fetchall
+df2 = pd.DataFrame(rs.fetchmany(size=5))
+
+con.close()
+
+print(df.head())
+
+
+"""
+Same workflow with context manager
+"""
+from sqlalchemy import create_engine
+import pandas as pd
+
+engine = create_engine('sqlite:///Chinook.sqlite')
+
+with engine.connect() as con:
+    rs = con.execute("SELECT * FROM Orders")
+
+    df = pd.DataFrame(rs.fetchall())
+    df.columns = rs.keys()
+
+
+    # We can also fetch only a specific number of rows by using fetchmany function instead of fetchall
+    df2 = pd.DataFrame(rs.fetchmany(size=5))
+    
+"""
+Using pandas to run query and get data instead of whole workflow
+"""
+df = pd.read_sql_query("SELECT * FROM Employee", engine)
+
+# We can run any query from this functions
 
 
 

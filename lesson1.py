@@ -83,10 +83,12 @@ print(arrr.shape)  # prints 3,3 because 3X3 matrix
 # Subsetting 2D numpy arrays is very easy
 x = [["a", "b"], ["c", "d"]]
 x_subsetted = [x[0][0], x[1][0]]
+print(x_subsetted)
 
 import numpy as np
 np_x = np.array(x)
 np_x_subsetted = np_x[:,0] # indices before comma represent rows and after comma represent columns
+print(np_x_subsetted)
 
 
 # Statistics using numpy arrays

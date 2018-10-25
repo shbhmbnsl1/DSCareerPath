@@ -3,7 +3,7 @@
 Created on Wed Sep 26 13:01:18 2018
 
 @author: shbhm
-Data Science Career Path - Lesson 5
+Data Science Career Path - Lesson 6
 """
 
 """
@@ -11,11 +11,11 @@ Data Science Career Path - Lesson 5
     1.1. Importing flat files from web, downloading them locally and reading directly
     1.2. Importing non flat files from the web
 
-2. Making HTTP requests 
+2. Making HTTP requests
     2.1. Using urllib package
     2.2. Using request package
     2.3. Scraping the web using BeautifulSoup
-    
+
 3. API's and JSON
     3.1. Loading and Exploring a JSON
     3.2. API Requests
@@ -36,7 +36,7 @@ Data Science Career Path - Lesson 5
 from urllib.request import urlretrieve
 import pandas as pd
 url = 'https://s3.amazonaws.com/assets.datacamp.com/production/course_1606/datasets/winequality-red.csv'
-# Save file locally. 
+# Save file locally.
 urlretrieve(url, 'winequality-red.csv')
 # Read file into a DataFrame and print its head
 df = pd.read_csv('winequality-red.csv', sep=';')
@@ -62,7 +62,7 @@ print(df.head())
 # We can import non flat files like excel files from the web using pandas read_excel function
 # the read_excel function will take two arguments
 # arg1 is url of the file & arg2 is sheet_name which should be None if you want to select all sheets from file
-# the output of pd.read_excel() is a Python dictionary with sheet names as keys and 
+# the output of pd.read_excel() is a Python dictionary with sheet names as keys and
 # corresponding DataFrames as corresponding values.
 
 # Import package
@@ -103,10 +103,10 @@ response.close()
 """
 2.2. Making Http requests using requests package
 """
-# Import package requests 
+# Import package requests
 # package the request, send the request and catch response using a single function call
 # get the text attribute out from the response
-# requests package provides a higher level interface with less code compared to urllib 
+# requests package provides a higher level interface with less code compared to urllib
 
 # Import package
 import requests
@@ -145,9 +145,9 @@ soup = BeautifulSoup(html_doc)
 pretty_soup = soup.prettify()
 # Print the response
 print(pretty_soup)
-# Get title of webpage 
+# Get title of webpage
 print(soup.title)
-# Get only the text of webpage 
+# Get only the text of webpage
 print(soup.get_text())
 # Getting all the hyperlinks from the html content
 a_tags = soup.find_all('a')
@@ -202,8 +202,8 @@ for k in json_data.keys():
 """
 3.3. Using Twitter API
 """
-# Import tweepy package which is used to handle all the Twitter API OAuth Authentication details 
-# 
+# Import tweepy package which is used to handle all the Twitter API OAuth Authentication details
+#
 
 # Import package
 import tweepy
